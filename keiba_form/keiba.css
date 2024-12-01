@@ -1,0 +1,159 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;  /* 各フォームグループの間に余白を追加 */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;  /* ラベルと入力フィールドの間に少し余白を追加 */
+}
+
+input, select, button {
+    width: calc(100% - 20px);  /* パディングを含めて横幅を統一 */
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;  /* パディングを含めたボックスサイズを計算 */
+}
+
+button {
+    margin-top: 20px;
+}
+
+/* チェックボックスのスタイル */
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    user-select: none;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+/* テーブルのスタイル */
+#dataList {
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+#dataTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#dataTable th, #dataTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#dataTable th {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+#dataTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#dataTable tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* スマホ画面向けに変更 */
+@media (max-width: 600px) {
+    form {
+        padding: 10px;
+    }
+
+    input, select, button {
+        width: calc(100% - 16px);  /* パディングを含めて横幅を統一 */
+        padding: 8px;
+        margin-top: 3px;
+    }
+
+    button {
+        margin-top: 15px;
+    }
+
+    .checkbox-container {
+        font-size: 18px;
+        padding-left: 25px;
+    }
+
+    .checkbox-container .checkmark {
+        height: 20px;
+        width: 20px;
+    }
+
+    #dataList {
+        max-width: 100%;
+        margin: 10px auto;
+    }
+
+    #dataTable th, #dataTable td {
+        padding: 5px;
+    }
+}

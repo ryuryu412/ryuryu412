@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>競馬データ入力フォーム</title>
+    <link rel="stylesheet" href="keiba.css">
+</head>
+<body>
+    <h1>競馬データ入力フォーム</h1>
+    <form id="keibaForm">
+        <div class="form-group">
+            <label for="date">日付 (例: 20241130):</label>
+            <input type="text" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label class="checkbox-container">今日の日付を使用する
+                <input type="checkbox" id="useToday" name="useToday" checked onchange="toggleDateInput()">
+                <span class="checkmark"></span>
+            </label>
+        </div>
+        <div class="form-group">
+            <label for="venue">会場:</label>
+            <select id="venue" name="venue">
+                <option value="札幌">札幌</option>
+                <option value="函館">函館</option>
+                <option value="福島">福島</option>
+                <option value="新潟">新潟</option>
+                <option value="中山">中山</option>
+                <option value="東京">東京</option>
+                <option value="中京">中京</option>
+                <option value="京都">京都</option>
+                <option value="阪神">阪神</option>
+                <option value="小倉">小倉</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="race">レース数 (1-12):</label>
+            <input type="number" id="race" name="race" min="1" max="12" required>
+        </div>
+        <div class="form-group">
+            <label for="betType">式別:</label>
+            <select id="betType" name="betType">
+                <option value="単勝">単勝</option>
+                <option value="複勝">複勝</option>
+                <option value="枠連">枠連</option>
+                <option value="馬連">馬連</option>
+                <option value="馬単">馬単</option>
+                <option value="ワイド">ワイド</option>
+                <option value="3連複">3連複</option>
+                <option value="3連単">3連単</option>
+                <option value="WIN5">WIN5</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="horseNumber">どの馬を購入したか:</label>
+            <input type="text" id="horseNumber" name="horseNumber" required>
+        </div>
+        <div class="form-group">
+            <label for="purchaseAmount">購入金額 (100単位):</label>
+            <input type="number" id="purchaseAmount" name="purchaseAmount" step="100" required>
+        </div>
+        <div class="form-group">
+            <label for="payoutAmount">払戻／返還金額:</label>
+            <input type="number" id="payoutAmount" name="payoutAmount" required>
+        </div>
+        <input type="hidden" id="rowIndex" name="rowIndex">
+        <button type="button" id="submitButton" onclick="addData()">データを追加</button>
+        <button type="button" onclick="downloadCSV()">CSVをダウンロード</button>
+    </form>
+
+    <div id="totals">
+        <p>購入金額の合計: <span id="totalPurchaseAmount">0</span></p>
+        <p>払戻／返還金額の合計: <span id="totalPayoutAmount">0</span></p>
+        <p>収支: <span id="totalProfit">0</span></p>
+        <p>回収率: <span id="totalReturnRate">0%</span></p>
+    </div>
+
+    <div id="dataList">
+        <h2>入力されたデータ</h2>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>会場</th>
+                    <th>レース</th>
+                    <th>式別</th>
+                    <th>どの馬を購入したか</th>
+                    <th>購入金額</th>
+                    <th>払戻／返還金額</th>
+                    <th>収支</th>
+                    <th>回収率</th>
+                    <th>編集</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
