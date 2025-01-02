@@ -8,95 +8,282 @@
 </head>
 <body>
     <h1>競馬データ入力フォーム</h1>
-    <form id="keibaForm">
+    
+    <form id="keiba-form">
         <div class="form-group">
-            <label for="date">日付 (例: 20241130):</label>
-            <input type="text" id="date" name="date" required>
+            <label for="date">日付:</label>
+            <input type="date" id="date" name="date" value="" required>
         </div>
+        <label>会場:</label>
+        <div class="button-group">
+            <button type="button" class="venue" data-value="札幌">札幌</button>
+            <button type="button" class="venue" data-value="函館">函館</button>
+            <button type="button" class="venue" data-value="福島">福島</button>
+            <button type="button" class="venue" data-value="新潟">新潟</button>
+            <button type="button" class="venue" data-value="中山">中山</button>
+            <button type="button" class="venue" data-value="東京">東京</button>
+            <button type="button" class="venue" data-value="中京">中京</button>
+            <button type="button" class="venue" data-value="京都">京都</button>
+            <button type="button" class="venue" data-value="阪神">阪神</button>
+            <button type="button" class="venue" data-value="小倉">小倉</button>
+        </div>
+        <label>レース数:</label>
+        <div class="button-group">
+            <button type="button" class="race-number" data-value="1">1</button>
+            <button type="button" class="race-number" data-value="2">2</button>
+            <button type="button" class="race-number" data-value="3">3</button>
+            <button type="button" class="race-number" data-value="4">4</button>
+            <button type="button" class="race-number" data-value="5">5</button>
+            <button type="button" class="race-number" data-value="6">6</button>
+            <button type="button" class="race-number" data-value="7">7</button>
+            <button type="button" class="race-number" data-value="8">8</button>
+            <button type="button" class="race-number" data-value="9">9</button>
+            <button type="button" class="race-number" data-value="10">10</button>
+            <button type="button" class="race-number" data-value="11">11</button>
+            <button type="button" class="race-number" data-value="12">12</button>
+        </div>
+        <label>式別:</label>
+        <div class="button-group">
+            <button type="button" class="bet-type" data-value="単勝">単勝</button>
+            <button type="button" class="bet-type" data-value="複勝">複勝</button>
+            <button type="button" class="bet-type" data-value="枠連">枠連</button>
+            <button type="button" class="bet-type" data-value="馬連">馬連</button>
+            <button type="button" class="bet-type" data-value="馬単">馬単</button>
+            <button type="button" class="bet-type" data-value="ワイド">ワイド</button>
+            <button type="button" class="bet-type" data-value="3連複">3連複</button>
+            <button type="button" class="bet-type" data-value="3連単">3連単</button>
+            <button type="button" class="bet-type" data-value="WIN5">WIN5</button>
+        </div>
+
         <div class="form-group">
-            <label class="checkbox-container">今日の日付を使用する
-                <input type="checkbox" id="useToday" name="useToday" checked onchange="toggleDateInput()">
-                <span class="checkmark"></span>
-            </label>
+            <label for="amount">購入金額 (100単位):</label>
+            <input type="number" id="amount" name="amount" value="1000" step="100" required>
         </div>
+        
         <div class="form-group">
-            <label for="venue">会場:</label>
-            <select id="venue" name="venue">
-                <option value="札幌">札幌</option>
-                <option value="函館">函館</option>
-                <option value="福島">福島</option>
-                <option value="新潟">新潟</option>
-                <option value="中山">中山</option>
-                <option value="東京">東京</option>
-                <option value="中京">中京</option>
-                <option value="京都">京都</option>
-                <option value="阪神">阪神</option>
-                <option value="小倉">小倉</option>
-            </select>
+            <label for="return">払戻／返還金額:</label>
+            <input type="number" id="return" name="return" value="0" required>
         </div>
-        <div class="form-group">
-            <label for="race">レース数 (1-12):</label>
-            <input type="number" id="race" name="race" min="1" max="12" required>
-        </div>
-        <div class="form-group">
-            <label for="betType">式別:</label>
-            <select id="betType" name="betType">
-                <option value="単勝">単勝</option>
-                <option value="複勝">複勝</option>
-                <option value="枠連">枠連</option>
-                <option value="馬連">馬連</option>
-                <option value="馬単">馬単</option>
-                <option value="ワイド">ワイド</option>
-                <option value="3連複">3連複</option>
-                <option value="3連単">3連単</option>
-                <option value="WIN5">WIN5</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="horseNumber">どの馬を購入したか:</label>
-            <input type="text" id="horseNumber" name="horseNumber" required>
-        </div>
-        <div class="form-group">
-            <label for="purchaseAmount">購入金額 (100単位):</label>
-            <input type="number" id="purchaseAmount" name="purchaseAmount" step="100" required>
-        </div>
-        <div class="form-group">
-            <label for="payoutAmount">払戻／返還金額:</label>
-            <input type="number" id="payoutAmount" name="payoutAmount" required>
-        </div>
-        <input type="hidden" id="rowIndex" name="rowIndex">
-        <button type="button" id="submitButton" onclick="addData()">データを追加</button>
-        <button type="button" onclick="downloadCSV()">CSVをダウンロード</button>
+
+        <button type="button" id="add-data">データ追加</button>
     </form>
 
-    <div id="totals">
-        <p>購入金額の合計: <span id="totalPurchaseAmount">0</span></p>
-        <p>払戻／返還金額の合計: <span id="totalPayoutAmount">0</span></p>
-        <p>収支: <span id="totalProfit">0</span></p>
-        <p>回収率: <span id="totalReturnRate">0%</span></p>
-    </div>
+    <h2>入力したデータ</h2>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>日付</th>
+                <th>会場</th>
+                <th>レース数</th>
+                <th>式別</th>
+                <th>購入金額</th>
+                <th>払戻／返還金額</th>
+                <th>収支</th>
+                <th>回収率</th>
+                <th>編集</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
-    <div id="dataList">
-        <h2>入力されたデータ</h2>
-        <table id="dataTable">
-            <thead>
-                <tr>
-                    <th>会場</th>
-                    <th>レース</th>
-                    <th>式別</th>
-                    <th>どの馬を購入したか</th>
-                    <th>購入金額</th>
-                    <th>払戻／返還金額</th>
-                    <th>収支</th>
-                    <th>回収率</th>
-                    <th>編集</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+    <h2>集計結果</h2>
+    <p>購入金額の合計: <span id="total-amount"></span></p>
+    <p>払戻／返還金額の合計: <span id="total-return"></span></p>
+    <p>収支: <span id="total-profit"></span></p>
+    <p>回収率: <span id="total-rate"></span></p>
 
-    <script src="script.js"></script>
+    <button id="export-csv">CSV出力</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('date').valueAsDate = new Date();
+
+            let selectedVenue = '';
+            let selectedRaceNumber = '';
+            let selectedBetType = '';
+
+            function setButtonSelected(group, value) {
+                document.querySelectorAll(group).forEach(btn => {
+                    btn.classList.remove('selected');
+                    if (btn.dataset.value === value) {
+                        btn.classList.add('selected');
+                    }
+                });
+            }
+
+            document.querySelectorAll('.venue').forEach(button => {
+                button.addEventListener('click', () => {
+                    selectedVenue = button.dataset.value;
+                    setButtonSelected('.venue', selectedVenue);
+                });
+            });
+
+            document.querySelectorAll('.race-number').forEach(button => {
+                button.addEventListener('click', () => {
+                    selectedRaceNumber = button.dataset.value;
+                    setButtonSelected('.race-number', selectedRaceNumber);
+                });
+            });
+
+            document.querySelectorAll('.bet-type').forEach(button => {
+                button.addEventListener('click', () => {
+                    selectedBetType = button.dataset.value;
+                    setButtonSelected('.bet-type', selectedBetType);
+                });
+            });
+
+            document.getElementById('add-data').addEventListener('click', () => {
+                const date = document.getElementById('date').value;
+                const amount = parseFloat(document.getElementById('amount').value);
+                const returnAmount = parseFloat(document.getElementById('return').value);
+                const profit = returnAmount - amount;
+                const rate = (amount === 0) ? 0 : (returnAmount / amount * 100).toFixed(2);
+
+                const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+                const row = table.insertRow();
+
+                row.insertCell(0).innerText = date;
+                row.insertCell(1).innerText = selectedVenue;
+                row.insertCell(2).innerText = selectedRaceNumber;
+                row.insertCell(3).innerText = selectedBetType;
+                row.insertCell(4).innerText = amount;
+                row.insertCell(5).innerText = returnAmount || "ー";
+                row.insertCell(6).innerText = profit || "ー";
+                row.insertCell(7).innerText = rate + '%';
+                const editCell = row.insertCell(8);
+                const editButton = document.createElement('button');
+                editButton.innerText = '編集';
+                editButton.addEventListener('click', () => {
+                    // 編集機能を追加
+                });
+                editCell.appendChild(editButton);
+
+                calculateTotals();
+                saveData();
+            });
+
+            function calculateTotals() {
+    let totalAmount = 0;
+    let totalReturn = 0;
+    let totalProfit = 0;
+
+    const rows = document.getElementById('data-table').getElementsByTagName('tbody')[0].rows;
+    for (let row of rows) {
+        totalAmount += parseFloat(row.cells[4].innerText);
+        totalReturn += parseFloat(row.cells[5].innerText);
+        totalProfit += parseFloat(row.cells[6].innerText);
+    }
+
+    document.getElementById('total-amount').innerText = totalAmount;
+    document.getElementById('total-return').innerText = totalReturn;
+    const totalProfitElement = document.getElementById('total-profit');
+    totalProfitElement.innerText = totalProfit;
+    if (totalProfit < 0) {
+        totalProfitElement.classList.add('red');
+    } else {
+        totalProfitElement.classList.remove('red');
+    }
+    document.getElementById('total-rate').innerText = (totalAmount === 0) ? '0%' : ((totalReturn / totalAmount) * 100).toFixed(2) + '%';
+}
+
+document.getElementById('export-csv').addEventListener('click', () => {
+    let csvContent = "日付,受付番号,通番,場名,曜日,レース,式別,馬／組番,購入金額,的中／返還,払戻単価,払戻／返還金額,収支,回収率\n";
+    const rows = document.getElementById('data-table').getElementsByTagName('tbody')[0].rows;
+    for (let row of rows) {
+        const data = [
+            row.cells[0].innerText,
+            "ー",  // 受付番号
+            "ー",  // 通番
+            row.cells[1].innerText,  // 場名
+            "ー",  // 曜日
+            row.cells[2].innerText,  // レース
+            row.cells[3].innerText,  // 式別
+            "ー",  // 馬／組番
+            row.cells[4].innerText,  // 購入金額
+            "ー",  // 的中／返還
+            "ー",  // 払戻単価
+            row.cells[5].innerText || "ー",  // 払戻／返還金額
+            row.cells[6].innerText || "ー",  // 収支
+            row.cells[7].innerText  // 回収率
+        ];
+        csvContent += data.join(",") + "\n";
+    }
+
+    const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    const blob = new Blob([bom, csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "keiba_data.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+});
+
+// データをセッションストレージに保存
+function saveData() {
+    const tableData = [];
+    const rows = document.getElementById('data-table').getElementsByTagName('tbody')[0].rows;
+    for (let row of rows) {
+        const rowData = {
+            date: row.cells[0].innerText,
+            venue: row.cells[1].innerText,
+            raceNumber: row.cells[2].innerText,
+            betType: row.cells[3].innerText,
+            amount: row.cells[4].innerText,
+            returnAmount: row.cells[5].innerText,
+            profit: row.cells[6].innerText,
+            rate: row.cells[7].innerText
+        };
+        tableData.push(rowData);
+    }
+    sessionStorage.setItem('tableData', JSON.stringify(tableData));
+    sessionStorage.setItem('selectedVenue', selectedVenue);
+    sessionStorage.setItem('selectedRaceNumber', selectedRaceNumber);
+    sessionStorage.setItem('selectedBetType', selectedBetType);
+}
+
+// セッションストレージからデータを読み込み
+function loadData() {
+    const savedTableData = sessionStorage.getItem('tableData');
+    if (savedTableData) {
+        const tableData = JSON.parse(savedTableData);
+        const table = document.getElementById('data-table').getElementsByTagName('tbody')[0];
+        for (let rowData of tableData) {
+            const row = table.insertRow();
+            row.insertCell(0).innerText = rowData.date;
+            row.insertCell(1).innerText = rowData.venue;
+            row.insertCell(2).innerText = rowData.raceNumber;
+            row.insertCell(3).innerText = rowData.betType;
+            row.insertCell(4).innerText = rowData.amount;
+            row.insertCell(5).innerText = rowData.returnAmount || "ー";
+            row.insertCell(6).innerText = rowData.profit || "ー";
+            row.insertCell(7).innerText = rowData.rate + '%';
+            const editCell = row.insertCell(8);
+            const editButton = document.createElement('button');
+            editButton.innerText = '編集';
+            editButton.addEventListener('click', () => {
+                // 編集機能を追加
+            });
+            editCell.appendChild(editButton);
+        }
+    }
+    selectedVenue = sessionStorage.getItem('selectedVenue') || '';
+    selectedRaceNumber = sessionStorage.getItem('selectedRaceNumber') || '';
+    selectedBetType = sessionStorage.getItem('selectedBetType') || '';
+
+    setButtonSelected('.venue', selectedVenue);
+    setButtonSelected('.race-number', selectedRaceNumber);
+    setButtonSelected('.bet-type', selectedBetType);
+
+    calculateTotals();
+}
+
+loadData();
+        });
+    </script>
 </body>
 </html>
