@@ -1,159 +1,110 @@
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
+    font-size: 18px;
 }
 
-h1 {
-    text-align: center;
+h1, h2 {
+    color: #333;
+    font-size: 24px;
 }
 
 form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .form-group {
-    margin-bottom: 15px;  /* 各フォームグループの間に余白を追加 */
+    margin-bottom: 15px;
 }
 
-label {
+.form-group label {
     display: block;
-    margin-bottom: 5px;  /* ラベルと入力フィールドの間に少し余白を追加 */
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-input, select, button {
-    width: calc(100% - 20px);  /* パディングを含めて横幅を統一 */
+.form-group input {
+    width: 100%;
     padding: 10px;
-    margin-top: 5px;
-    box-sizing: border-box;  /* パディングを含めたボックスサイズを計算 */
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
-button {
-    margin-top: 20px;
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: stretch;  /* ボタンの縦位置を揃える */
 }
 
-/* チェックボックスのスタイル */
-.checkbox-container {
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
+.button-group button {
+    flex: 1 1 calc(100% / 6 - 10px);
+    padding: 10px 15px;
     cursor: pointer;
-    font-size: 22px;
-    user-select: none;
+    font-size: 16px;
+    box-sizing: border-box;
+    white-space: nowrap;  /* 文字が縦並びにならないように */
 }
 
-.checkbox-container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
+button.selected {
+    background-color: red;
+    color: white;
 }
 
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-}
-
-.checkbox-container:hover input ~ .checkmark {
-    background-color: #ccc;
-}
-
-.checkbox-container input:checked ~ .checkmark {
-    background-color: #2196F3;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.checkbox-container input:checked ~ .checkmark:after {
-    display: block;
-}
-
-.checkbox-container .checkmark:after {
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    transform: rotate(45deg);
-}
-
-/* テーブルのスタイル */
-#dataList {
-    max-width: 1000px;
-    margin: 20px auto;
-    border-collapse: collapse;
-}
-
-#dataTable {
+table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 16px;
 }
 
-#dataTable th, #dataTable td {
+th, td {
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
 
-#dataTable th {
-    background-color: #f2f2f2;
-    color: black;
+th {
+    background-color: #f4f4f4;
 }
 
-#dataTable tr:nth-child(even) {
-    background-color: #f9f9f9;
+p {
+    font-size: 1.2em;
 }
 
-#dataTable tr:hover {
-    background-color: #f1f1f1;
+.red {
+    color: red;
 }
 
-/* スマホ画面向けに変更 */
-@media (max-width: 600px) {
+/* スマートフォン向けのレスポンシブ対応 */
+@media screen and (max-width: 600px) {
+    body {
+        margin: 10px;
+    }
+
     form {
-        padding: 10px;
+        font-size: 14px;
     }
 
-    input, select, button {
-        width: calc(100% - 16px);  /* パディングを含めて横幅を統一 */
-        padding: 8px;
-        margin-top: 3px;
+    .button-group {
+        flex-wrap: wrap;
+        align-items: stretch;  /* ボタンの縦位置を揃える */
     }
 
-    button {
-        margin-top: 15px;
+    .button-group button {
+        flex: 1 1 calc(100% / 6 - 10px);  /* 6つ横並びに表示 */
+        margin-bottom: 5px;
+        padding: 12px;  /* ボタンを少し大きくする */
+        font-size: 14px;  /* テキストサイズを少し小さくする */
+        white-space: nowrap;  /* 文字が縦並びにならないように */
     }
 
-    .checkbox-container {
-        font-size: 18px;
-        padding-left: 25px;
+    .form-group input {
+        font-size: 14px;
     }
 
-    .checkbox-container .checkmark {
-        height: 20px;
-        width: 20px;
-    }
-
-    #dataList {
-        max-width: 100%;
-        margin: 10px auto;
-    }
-
-    #dataTable th, #dataTable td {
-        padding: 5px;
+    table, th, td {
+        font-size: 12px;
     }
 }
